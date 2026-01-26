@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { 
@@ -13,7 +13,7 @@ import {
   User,
   CheckCircle,
   Clock,
-  TrendingUp
+
 } from "lucide-react";
 
 const CLOUDINARY_UPLOAD_PRESET = "fgl3bmtq";
@@ -56,30 +56,41 @@ const Admin = () => {
 
   const token = localStorage.getItem("token");
 
-  
-  const fetchProducts = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/products`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setProducts(res.data);
-  };
 
-  const fetchCategories = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/categories`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setCategories(res.data);
-  };
+  const fetchProducts = useCallback(async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/products`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProducts(res.data);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+    }
+  }, [token]);
 
-  const fetchOrders = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/orders`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setOrders(res.data);
-  };
+  const fetchCategories = useCallback(async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/categories`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCategories(res.data);
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+    }
+  }, [token]);
+
+  const fetchOrders = useCallback(async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/orders`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setOrders(res.data);
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+    }
+  }, [token]);
 
 
-  
   useEffect(() => {
     if (activeTab === "products") {
       fetchProducts();
