@@ -29,7 +29,6 @@ public class Category {
 
     private String imageUrl;
 
-    // 🔥 ONE category → MANY products
     @OneToMany(
         mappedBy = "category",
         cascade = CascadeType.ALL,
