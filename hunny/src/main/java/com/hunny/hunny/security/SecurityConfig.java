@@ -49,10 +49,10 @@ public CorsConfigurationSource corsConfigurationSource() {
 
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
-        .cors(Customizer.withDefaults()) // ✅ enable cors
+        .cors(Customizer.withDefaults())
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // ✅ allow preflight
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
             .requestMatchers("/api/user/**").authenticated()
