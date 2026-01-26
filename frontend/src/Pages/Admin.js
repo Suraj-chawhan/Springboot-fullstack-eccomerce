@@ -56,15 +56,7 @@ const Admin = () => {
 
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    if (activeTab === "products") {
-      fetchProducts();
-      fetchCategories();
-    }
-    if (activeTab === "categories") fetchCategories();
-    if (activeTab === "orders") fetchOrders();
-  }, [activeTab,fetchCategories,fetchOrders,fetchProducts]);
-
+  
   const fetchProducts = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/products`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -85,6 +77,17 @@ const Admin = () => {
     });
     setOrders(res.data);
   };
+
+
+  
+  useEffect(() => {
+    if (activeTab === "products") {
+      fetchProducts();
+      fetchCategories();
+    }
+    if (activeTab === "categories") fetchCategories();
+    if (activeTab === "orders") fetchOrders();
+  }, [activeTab,fetchCategories,fetchOrders,fetchProducts]);
 
   const handleProductImageUpload = async (file) => {
     setLoading(true);

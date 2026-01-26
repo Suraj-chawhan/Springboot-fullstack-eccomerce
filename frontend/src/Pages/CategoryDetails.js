@@ -15,15 +15,8 @@ const CategoryProducts = () => {
   const [selectedPriceRange, setSelectedPriceRange] = useState({ min: 0, max: 10000 });
   const [sortBy, setSortBy] = useState('default');
 
-  useEffect(() => {
-    fetchCategoryProducts();
-  }, [id,fetchCategoryProducts]);
 
-  useEffect(() => {
-    filterAndSortProducts();
-  }, [products, selectedPriceRange, sortBy,filterAndSortProducts]);
-
-  const fetchCategoryProducts = async () => {
+    const fetchCategoryProducts = async () => {
   setLoading(true);
   try {
     const token = localStorage.getItem("token");
@@ -71,6 +64,20 @@ const CategoryProducts = () => {
 
     setFilteredProducts(filtered);
   };
+
+  
+  useEffect(() => {
+    fetchCategoryProducts();
+  }, [id,fetchCategoryProducts]);
+
+  useEffect(() => {
+    filterAndSortProducts();
+  }, [products, selectedPriceRange, sortBy,filterAndSortProducts]);
+
+
+
+
+
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
