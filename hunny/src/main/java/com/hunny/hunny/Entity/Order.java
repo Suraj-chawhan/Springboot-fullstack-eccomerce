@@ -36,10 +36,9 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
-        private String orderStatus;     // PLACED, CONFIRMED, DELIVERED
+        private String orderStatus;     
 
-    // Razorpay payment (ONLY)
-    private String paymentStatus;   // CREATED, PAID, FAILED
+    private String paymentStatus;   
     private String razorpayOrderId;
     private String razorpayPaymentId;
     private String razorpaySignature;
