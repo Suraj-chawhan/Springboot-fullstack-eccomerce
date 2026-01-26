@@ -30,7 +30,7 @@ const SignIn = ({ setIsAuthenticated, setUserRole }) => {
       if (response.data && response.data.token) {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('role', response.data.role);
-        alert(response.data.id)
+  
         localStorage.setItem("userId",response.data.id)
         setIsAuthenticated(true);
         setUserRole(response.data.role);
