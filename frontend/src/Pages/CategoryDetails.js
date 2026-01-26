@@ -17,11 +17,11 @@ const CategoryProducts = () => {
 
   useEffect(() => {
     fetchCategoryProducts();
-  }, [id]);
+  }, [id,fetchCategoryProducts]);
 
   useEffect(() => {
     filterAndSortProducts();
-  }, [products, selectedPriceRange, sortBy]);
+  }, [products, selectedPriceRange, sortBy,filterAndSortProducts]);
 
   const fetchCategoryProducts = async () => {
   setLoading(true);

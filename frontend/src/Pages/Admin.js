@@ -63,7 +63,7 @@ const Admin = () => {
     }
     if (activeTab === "categories") fetchCategories();
     if (activeTab === "orders") fetchOrders();
-  }, [activeTab]);
+  }, [activeTab,fetchCategories,fetchOrders,fetchProducts]);
 
   const fetchProducts = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/products`, {
