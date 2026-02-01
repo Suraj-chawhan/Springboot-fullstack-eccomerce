@@ -124,7 +124,7 @@ const Admin = () => {
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    alert("✅ Product added");
+  alert(" Product added");
     setProductForm({
       name: "",
       price: "",
@@ -147,7 +147,7 @@ const Admin = () => {
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    alert("✅ Category added");
+    alert(" Category added");
     setCategoryForm({ name: "", imageUrl: "" });
     fetchCategories();
     setLoading(false);
