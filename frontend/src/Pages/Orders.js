@@ -9,7 +9,6 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch orders for the logged-in user
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -24,7 +23,7 @@ const MyOrders = () => {
 
       setOrders(data || []);
     } catch (err) {
-      console.error("❌ Error fetching orders:", err);
+      console.error(" Error fetching orders:", err);
       alert("Failed to fetch orders. Please try again.");
     } finally {
       setLoading(false);
@@ -42,7 +41,6 @@ const MyOrders = () => {
     navigate("/signin");
   };
 
-  // --- Loading UI ---
   if (loading)
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9]">
@@ -54,7 +52,6 @@ const MyOrders = () => {
       </div>
     );
 
-  // --- No Orders UI ---
   if (!orders || orders.length === 0)
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9]">
@@ -79,7 +76,7 @@ const MyOrders = () => {
       </div>
     );
 
-  // --- Orders List UI ---
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9]">
       <Navbar onLogout={handleLogout} />
@@ -95,7 +92,6 @@ const MyOrders = () => {
           </p>
         </div>
 
-        {/* Orders */}
         <div className="space-y-8">
           {orders.map((order) => (
             <div
@@ -137,7 +133,7 @@ const MyOrders = () => {
                 </div>
               </div>
 
-              {/* Order Items */}
+        
               <div className="p-8">
                 <h3 className="text-xl font-black text-[#1e293b] mb-5">
                   Items
@@ -179,7 +175,6 @@ const MyOrders = () => {
                   </table>
                 </div>
 
-                {/* Razorpay Info */}
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="p-5 bg-[#f8fafc] rounded-2xl border border-[#e2e8f0]">
                     <p className="text-xs text-[#64748b] uppercase font-bold tracking-wider">
@@ -204,7 +199,6 @@ const MyOrders = () => {
           ))}
         </div>
 
-        {/* Back Button */}
         <div className="mt-14 flex justify-center">
           <button
             onClick={() => navigate("/ecommerce")}
