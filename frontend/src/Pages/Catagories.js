@@ -23,7 +23,7 @@ const Categories = () => {
 
       setCategories(res.data || []);
     } catch (err) {
-      console.error("❌ Error fetching categories:", err);
+      console.error(" Error fetching categories:", err);
       alert("Failed to load categories");
     } finally {
       setLoading(false);
