@@ -10,7 +10,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ fetch products
+
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -19,10 +19,10 @@ const Products = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // ✅ show only 20 products
+      
       setProducts((res.data || []).slice(0, 20));
     } catch (err) {
-      console.error("❌ Error fetching products:", err);
+      console.error(" Error fetching products:", err);
       alert("Failed to load products");
     } finally {
       setLoading(false);
@@ -38,7 +38,6 @@ const Products = () => {
     navigate("/signin");
   };
 
-  // ✅ total products shown
   const totalShown = useMemo(() => products?.length || 0, [products]);
 
   return (
@@ -46,7 +45,7 @@ const Products = () => {
       <Navbar onLogout={handleLogout} />
 
       <div className="max-w-[1400px] mx-auto px-6 py-14">
-        {/* Header */}
+        
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div>
             <h1 className="font-['Playfair_Display'] text-5xl font-black text-[#1a1a2e] tracking-tight">
@@ -66,7 +65,7 @@ const Products = () => {
           </button>
         </div>
 
-        {/* Loader */}
+
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[...Array(8)].map((_, i) => (
@@ -88,7 +87,6 @@ const Products = () => {
                 onClick={() => navigate(`/product/${p.id}`)}
                 className="bg-white rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 shadow-[0_6px_20px_rgba(0,0,0,0.06)] border border-black/5 hover:-translate-y-3 hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
               >
-                {/* Image */}
                 <div className="relative w-full h-[240px] overflow-hidden bg-gradient-to-br from-[#f8fafc] to-[#e2e8f0]">
                   {p.imageUrl ? (
                     <img
@@ -102,12 +100,10 @@ const Products = () => {
                     </div>
                   )}
 
-                  {/* Category Badge */}
                   <span className="absolute top-4 left-4 bg-white/90 backdrop-blur px-4 py-2 rounded-full text-xs font-bold text-[#1e293b] shadow-sm border border-black/5">
                     {p.categoryName || "Food"}
                   </span>
 
-                  {/* Stock Badge */}
                   {p.quantity === 0 ? (
                     <span className="absolute top-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider">
                       Out of Stock
@@ -119,7 +115,6 @@ const Products = () => {
                   ) : null}
                 </div>
 
-                {/* Info */}
                 <div className="p-7">
                   <h3 className="text-[20px] font-black text-[#1e293b] mb-2 tracking-tight truncate">
                     {p.name}
@@ -150,7 +145,7 @@ const Products = () => {
           </div>
         )}
 
-        {/* Bottom */}
+    
         <div className="mt-16 flex justify-center">
           <button
             onClick={() => navigate("/ecommerce")}
