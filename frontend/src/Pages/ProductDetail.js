@@ -17,10 +17,10 @@ const ProductDetail = () => {
 
   useEffect(() => {
     fetchProduct();
-    // eslint-disable-next-line
+
   }, [id]);
 
-  // ✅ Fetch Single Product
+ 
   const fetchProduct = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -42,7 +42,7 @@ const ProductDetail = () => {
     }
   };
 
-  // ✅ Razorpay Checkout Logic (WORKING WITH YOUR BACKEND)
+ 
 const handleCheckout = async () => {
   if (!product) return;
 
@@ -56,25 +56,21 @@ const handleCheckout = async () => {
     const qty = Number(quantity || 1);
     const total = price * qty;
 
-    // ✅ check before sending
-    console.log("✅ Price:", price);
-    console.log("✅ Qty:", qty);
-    console.log("✅ Total:", total);
   
     const orderDTO = {
       userId: userId,
       totalAmount: total,
       items: [
         {
-          productId: Number(product.id),  // ✅ FIXED
-          productName: product.name,      // ✅ optional but your DTO has it
+          productId: Number(product.id),  
+          productName: product.name,     
           quantity: qty,
-          price: price                    // ✅ optional but your DTO has it
+          price: price                 
         },
       ],
     };
 
-    console.log("✅ Sending orderDTO:", orderDTO);
+    ;
 
     const orderRes = await axios.post(
       `${process.env.REACT_APP_API_URL}/api/place`,
@@ -88,10 +84,10 @@ const handleCheckout = async () => {
     );
 
     const orderData = orderRes.data;
-    console.log("✅ Order Created:", orderData);
+   
 
     if (!window.Razorpay) {
-      alert("❌ Razorpay SDK not loaded. Add script in public/index.html");
+      alert(" Razorpay SDK not loaded. Add script in public/index.html");
       return;
     }
 
@@ -105,7 +101,7 @@ const handleCheckout = async () => {
     handler: async function (response) {
   try {
     const verifyDTO = {
-      orderId: orderData.id,  // ✅ IMPORTANT FIX
+      orderId: orderData.id, 
       razorpayPaymentId: response.razorpay_payment_id,
       razorpaySignature: response.razorpay_signature,
     };
@@ -121,19 +117,19 @@ const handleCheckout = async () => {
       }
     );
 
-    console.log("✅ Payment verified:", verifyRes.data);
-    alert("✅ Payment Successful & Verified!");
+    console.log("Payment verified:", verifyRes.data);
+    alert(" Payment Successful & Verified!");
     setOrderSuccess(true);
 
     setTimeout(() => navigate("/ecommerce"), 1500);
   } catch (err) {
-    console.error("❌ Payment Verification Failed:", err);
-    alert("❌ Payment Done, But Verification Failed!");
+    console.error("Payment Verification Failed:", err);
+    alert(" Payment Done, But Verification Failed!");
   }
 },
       modal: {
         ondismiss: function () {
-          alert("❌ Payment Cancelled!");
+          alert(" Payment Cancelled!");
         },
       },
       theme: { color: "#667eea" },
@@ -141,21 +137,21 @@ const handleCheckout = async () => {
 
     new window.Razorpay(options).open();
   } catch (error) {
-    console.error("❌ Error placing order:", error);
-    alert("❌ Failed to place order. Please try again.");
+    console.error(" Error placing order:", error);
+    alert(" Failed to place order. Please try again.");
   } finally {
     setOrderLoading(false);
   }
 };
 
-  // ✅ Logout
+  //  Logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     navigate("/signin");
   };
 
-  // ✅ Loading UI
+  //  Loading UI
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9]">
@@ -167,7 +163,7 @@ const handleCheckout = async () => {
     );
   }
 
-  // ✅ Product Not Found UI
+  // Product Not Found UI
   if (!product) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9]">
@@ -187,7 +183,7 @@ const handleCheckout = async () => {
     );
   }
 
-  // ✅ Main UI (Unchanged)
+  // Main UI (Unchanged)
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9]">
       <Navbar onLogout={handleLogout} />
@@ -211,9 +207,8 @@ const handleCheckout = async () => {
           Back to Shop
         </button>
 
-        {/* Product Detail Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-          {/* Product Image */}
+      
           <div className="sticky top-24 w-full h-[600px] bg-white rounded-[32px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.1)]">
             {product.imageUrl ? (
               <img
@@ -236,16 +231,15 @@ const handleCheckout = async () => {
             )}
           </div>
 
-          {/* Product Info */}
+          
           <div className="bg-white px-12 py-12 rounded-[32px] shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
-            {/* Header */}
+      
             <div className="flex items-start justify-between gap-5 mb-8 pb-8 border-b-2 border-[#f1f5f9]">
               <h1 className="flex-1 font-['Playfair_Display'] text-5xl font-black text-[#1a1a2e] leading-tight tracking-tight">
                 {product.name}
               </h1>
             </div>
 
-            {/* Price */}
             <div className="flex items-baseline gap-3 mb-10">
               <span className="text-sm font-semibold text-[#64748b] uppercase tracking-widest">
                 Price
@@ -255,7 +249,7 @@ const handleCheckout = async () => {
               </span>
             </div>
 
-            {/* Quantity */}
+          
             <div className="mb-10">
               <h3 className="text-xl font-bold text-[#1e293b] mb-4 tracking-tight">
                 Quantity
@@ -297,7 +291,7 @@ const handleCheckout = async () => {
               </div>
             </div>
 
-            {/* Total */}
+            
             <div className="flex items-center justify-between p-6 bg-gradient-to-r from-[#667eea]/5 to-[#764ba2]/5 rounded-2xl mb-8">
               <span className="text-base font-semibold text-[#64748b] uppercase tracking-wider">
                 Total
@@ -307,7 +301,6 @@ const handleCheckout = async () => {
               </span>
             </div>
 
-            {/* Checkout Button */}
             <button
               onClick={handleCheckout}
               disabled={orderLoading || orderSuccess}
