@@ -24,11 +24,12 @@ const Ecommerce = () => {
         headers: { Authorization: `Bearer ${token}` }
       };
 
-      const [categoriesRes, productsRes] = await Promise.all([
-        axios.get('http://localhost:8080/api/user/categories', config),
-        axios.get(`${process.env.REACT_APP_API_URL}/api/user/products`, config)
+   const [categoriesRes, productsRes] = await Promise.all([
+        axios.get(`${API_URL}/api/user/categories`, config),
+        axios.get(`${API_URL}/api/user/products`, config)
       ]);
 
+      
       setCategories(categoriesRes.data);
       setProducts(productsRes.data);
     } catch (error) {
